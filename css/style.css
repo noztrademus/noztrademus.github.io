@@ -1,0 +1,152 @@
+@font-face {
+    font-family: 'Creepster';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/Creepster-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Shadows';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/ShadowsIntoLight-Regular.ttf');
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.preload {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 1);
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+}
+
+.preload.hide {
+    transition: 1s ease-in-out;
+    background: rgba(0, 0, 0, 0);
+}
+
+.preload--left, .preload--right {
+    position: fixed;
+    top: 0;
+    width: 50%;
+    height: 100vh;
+    z-index: 99;
+    background-size: cover;
+    background-repeat: none;
+}
+
+.preload--left {
+    left: 0;
+    background-image: url('images/japanese_doors_left.jpg');
+    background-position: center right;
+}
+
+.preload--right {
+    right: 0;
+    background-image: url('images/japanese_doors_right.jpg');
+    background-position: center left;
+}
+
+.preload--left.hide {
+    transition: 2s ease-in-out;
+    transform: translateX(-100%);
+}
+
+.preload--right.hide {
+    transition: 2s ease-in-out;
+    transform: translateX(100%);
+}
+
+.wrapper {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.wrapper.hide{
+    display: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.container {
+    position: absolute;
+    color: white;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.text-module{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 70%;
+}
+
+.title{
+    font-family: 'Creepster', sans-serif;
+    letter-spacing: 0.2rem;
+    font-size: 4rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+}
+
+.subtitle{
+    font-family: 'Shadows';
+    letter-spacing: 0.1rem;
+    font-size: 2rem;
+}
+
+@media (max-width: 769px){
+    .text-module{
+        width: 92%;
+    }
+}
+        .button-link {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-family: 'Shadows';
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .button-link:last-child {
+            margin-right: 0;
+        }
+
+img {
+  max-width: 50%;
+  height: auto;
+}
