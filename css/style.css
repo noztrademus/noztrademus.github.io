@@ -155,15 +155,26 @@ img {
   position: fixed;
   top: 20px;
   left: 20px;
+
+  padding: 8px 14px;
+  border-radius: 6px;
+
+  background: rgba(0, 0, 0, 0.6);
   color: #ffffff;
-  text-decoration: none;
-  font-size: 16px;
+
+  font-size: 14px;
   font-family: system-ui, sans-serif;
-  opacity: 0.85;
+  text-decoration: none;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+
+  transition: background 0.2s ease, transform 0.15s ease;
   z-index: 1000;
 }
 
 .home-link:hover {
-  opacity: 1;
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
 }
+
