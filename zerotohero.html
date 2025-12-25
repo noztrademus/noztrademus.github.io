@@ -1,262 +1,255 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
-     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB60FSK1NV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CB60FSK1NV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CB60FSK1NV');
+  </script>
 
-  gtag('config', 'G-CB60FSK1NV');
-</script>
-    <meta charset="utf-8">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero to Hero (time consuming)</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css">
-        <style type="text/css">
-    text{
-        font-family:Helvetica, Arial, sans-serif;
-        font-size:18px;
-        pointer-events:none;
-    }
-    p{
-        font-size: 100px;
-        font-weight: bold;
-        font-family: monospace;
-    }
-    #chart{
-        position:center;
-        width:500px;
-        height:500px;
-        top:0;
-        left:0;
-    }
-    #question{
-        position: absolute;
-        width:600px;
-        height:200px;
-        top:400px;
-        left:750px;
-    }
-    #question h1{
-        font-size: 50px;
-        font-weight: bold;
-        font-family: monospace;
-        color: white;
-        position: absolute;
-        padding: 0;
-        margin: 20;
-        top: 90%;
-        left: -30%;
-        -webkit-transform:translate(0,-50%);
-                transform:translate(0,-50%);
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to Hero (time consuming)</title>
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Sida-specifik CSS (du kan flytta till style.css om du vill) -->
+  <style>
+    /* D3 text på wheel */
+    #chart text{
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      pointer-events: none;
     }
 
-    </style>
+    /* Responsiv wheel-layout för den här sidan (scopad till .zth-page) */
+    .zth-page .zth-content{
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 0 40px;
+      text-align: center;
+    }
+
+    .zth-page .zth-desc{
+      max-width: 980px;
+      margin: 0 auto 18px;
+      padding: 0 12px;
+      font-family: 'Shadows', system-ui, sans-serif;
+      font-size: clamp(18px, 3.6vw, 26px);
+      line-height: 1.35;
+    }
+
+    .zth-page .wheel-layout{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: center;
+      justify-items: center;
+      margin-top: 10px;
+    }
+
+    .zth-page #chart{
+      width: min(92vw, 520px);
+      height: min(92vw, 520px);
+    }
+
+    .zth-page #chart svg{
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .zth-page #question{
+      width: min(92vw, 900px);
+      padding: 0 16px 10px;
+      text-align: center;
+    }
+
+    .zth-page #question h1{
+      margin: 0;
+      font-family: monospace;
+      font-weight: 800;
+      font-size: clamp(20px, 4.5vw, 40px);
+      color: white;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+      line-height: 1.1;
+    }
+  </style>
 </head>
-<body>   
-        <div class="wrapper" style="background-image: url('/images/crotas_end.jpg');">
-            <div class="overlay"></div>
-        
-<div class="container">
-                <div class="text-module">
-                    <h1 class="title color--red">ZERO TO HERO</h1>
-                     <a href="/" class="home-link">&lt; Home</a>
-                    <h2 class="subtitle color--gray">The challenge is for you to go from zero to hero. You must put everything you have on you in your vault. You start with white gear (and green heavy) only. You may only use what drops in the raid. That's how you get stronger. You spin the wheel to choose which raid to start with.<br>Note: If you leave this page, the wheel will be reset.</h2> 
-                    
-                    <div id="chart"></div>
-        <div id="question"><h1></h1></div>
-   
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8">
-        var padding = {top:20, right:30, bottom:0, left:0},
-            w = 500 - padding.left - padding.right,
-            h = 500 - padding.top  - padding.bottom,
-            r = Math.min(w, h)/2,
-            rotation = 1,
-            oldrotation = 0,
-            picked = 10000000,
-            oldpick = [],
-            color = d3.scale.category20();//category20c()
-            //randomNumbers = getRandomNumbers();
 
-        var data = [
-                    {"label":"Last Wish",  "value":1,  "question":"Last Wish"},
-                    {"label":"Garden of Salvation",  "value":1,  "question":"Garden of Salvation"},
-                    {"label":"Vault of Glass",  "value":1,  "question":"Vault of Glass"},
-                    {"label":"Deep Stone Crypt",  "value":1,  "question":"Deep Stone Crypt"},
-                    {"label":"Root of Nightmares",  "value":1,  "question":"Root of Nightmares"},
-                    {"label":"Vow of the Disciple",  "value":1,  "question":"Vow of the Disciple"},
-                    {"label":"Crota´s End",  "value":1,  "question":"Crota´s End"},
-                    {"label":"Salvation´s Edge",  "value":1,  "question":"Salvation´s Edge"},
-                    //--    LAST ONE DOWN UNDER     --//
-                    {"label":"Lucky Spin",  "value":1,  "question":"You choose!"}
-        ];
+<body class="zth-page">
+  <a href="/" class="home-link">&lt; Home</a>
 
+  <div class="wrapper" style="background-image: url('/images/crotas_end.jpg');">
+    <div class="overlay"></div>
 
-        var svg = d3.select('#chart')
-            .append("svg")
-            .data([data])
-            .attr("width",  w + padding.left + padding.right)
-            .attr("height", h + padding.top + padding.bottom);
+    <div class="container">
+      <div class="text-module zth-content">
+        <h1 class="title">ZERO TO HERO</h1>
 
-        var container = svg.append("g")
-            .attr("class", "chartholder")
-            .attr("transform", "translate(" + (w/2 + padding.left) + "," + (h/2 + padding.top) + ")");
+        <p class="subtitle zth-desc">
+          The challenge is for you to go from zero to hero. You must put everything you have on you in your vault.
+          You start with white gear (and green heavy) only. You may only use what drops in the raid. That's how you get stronger.
+          You spin the wheel to choose which raid to start with.<br>
+          Note: If you leave this page, the wheel will be reset.
+        </p>
 
-        var vis = container
-            .append("g");
-           
-        var pie = d3.layout.pie().sort(null).value(function(d){return 1;});
+        <section class="wheel-layout">
+          <div id="chart" aria-label="Zero to Hero wheel"></div>
+          <div id="question" aria-live="polite"><h1></h1></div>
+        </section>
+      </div>
+    </div>
+  </div>
 
-        // declare an arc generator function
-        var arc = d3.svg.arc().outerRadius(r);
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    // ===== Responsive size =====
+    var padding = { top: 20, right: 20, bottom: 20, left: 20 };
 
-        // select paths, use arc generator to draw
-        var arcs = vis.selectAll("g.slice")
-            .data(pie)
-            .enter()
-            .append("g")
-            .attr("class", "slice");
-           
+    function computeSize() {
+      var size = Math.min(window.innerWidth * 0.92, 520);
+      return {
+        size: size,
+        w: size - padding.left - padding.right,
+        h: size - padding.top - padding.bottom
+      };
+    }
 
-        arcs.append("path")
-            .attr("fill", function(d, i){ return color(i); })
-            .attr("d", function (d) { return arc(d); });
+    var dims = computeSize();
+    var w = dims.w;
+    var h = dims.h;
+    var r = Math.min(w, h) / 2;
 
-        // add the text
-        arcs.append("text").attr("transform", function(d){
-                d.innerRadius = 0;
-                d.outerRadius = r;
-                d.angle = (d.startAngle + d.endAngle)/2;
-                return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
-            })
-            .attr("text-anchor", "end")
-            .text( function(d, i) {
-                return data[i].label;
-            });
+    var rotation = 1,
+        oldrotation = 0,
+        picked = 10000000,
+        oldpick = [],
+        color = d3.scale.category20();
 
-        container.on("click", spin);
+    var data = [
+      {"label":"Last Wish",  "value":1,  "question":"Last Wish"},
+      {"label":"Garden of Salvation",  "value":1,  "question":"Garden of Salvation"},
+      {"label":"Vault of Glass",  "value":1,  "question":"Vault of Glass"},
+      {"label":"Deep Stone Crypt",  "value":1,  "question":"Deep Stone Crypt"},
+      {"label":"Root of Nightmares",  "value":1,  "question":"Root of Nightmares"},
+      {"label":"Vow of the Disciple",  "value":1,  "question":"Vow of the Disciple"},
+      {"label":"Crota´s End",  "value":1,  "question":"Crota´s End"},
+      {"label":"Salvation´s Edge",  "value":1,  "question":"Salvation´s Edge"},
+      {"label":"Lucky Spin",  "value":1,  "question":"You choose!"}
+    ];
 
+    // ===== Build SVG =====
+    var svg = d3.select('#chart')
+      .append("svg")
+      .data([data])
+      .attr("width",  w + padding.left + padding.right)
+      .attr("height", h + padding.top + padding.bottom);
 
-        function spin(d){
-           
-            container.on("click", null);
+    var container = svg.append("g")
+      .attr("class", "chartholder")
+      .attr("transform", "translate(" + (w/2 + padding.left) + "," + (h/2 + padding.top) + ")");
 
-            //all slices have been seen, all done
-            console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
-            if(oldpick.length == data.length){
-                console.log("done");
-                container.on("click", null);
-                return;
-            }
+    var vis = container.append("g");
+    var pie = d3.layout.pie().sort(null).value(function(){ return 1; });
+    var arc = d3.svg.arc().outerRadius(r);
 
-            var  ps       = 360/data.length,
-                 pieslice = Math.round(1440/data.length),
-                 rng      = Math.floor((Math.random() * 9440) + 360);
-               
-            rotation = (Math.round(rng / ps) * ps);
-           
-            picked = Math.round(data.length - (rotation % 360)/ps);
-            picked = picked >= data.length ? (picked % data.length) : picked;
+    var arcs = vis.selectAll("g.slice")
+      .data(pie)
+      .enter()
+      .append("g")
+      .attr("class", "slice");
 
+    arcs.append("path")
+      .attr("fill", function(d, i){ return color(i); })
+      .attr("d", function(d){ return arc(d); });
 
-            if(oldpick.indexOf(picked) !== -1){
-                d3.select(this).call(spin);
-                return;
-            } else {
-                oldpick.push(picked);
-            }
+    arcs.append("text")
+      .attr("transform", function(d){
+        d.innerRadius = 0;
+        d.outerRadius = r;
+        d.angle = (d.startAngle + d.endAngle)/2;
+        return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius - 10) +")";
+      })
+      .attr("text-anchor", "end")
+      .text(function(d, i){ return data[i].label; });
 
-            rotation += 90 - Math.round(ps/2);
+    container.on("click", spin);
 
-            vis.transition()
-                .duration(5000)
-                .attrTween("transform", rotTween)
-                .each("end", function(){
+    function spin(){
+      container.on("click", null);
 
-                    //mark question as seen
-                    d3.select(".slice:nth-child(" + (picked + 1) + ") path")
-                        .attr("fill", "#333");
+      if(oldpick.length === data.length){
+        container.on("click", null);
+        return;
+      }
 
-                    //populate question
-                    d3.select("#question h1")
-                        .text(data[picked].question);
+      var ps = 360 / data.length;
+      var rng = Math.floor((Math.random() * 9440) + 360);
 
-                    oldrotation = rotation;
-               
-                    container.on("click", spin);
-                });
-        }
+      rotation = (Math.round(rng / ps) * ps);
 
-        //make arrow
-        svg.append("g")
-            .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
-            .append("path")
-            .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
-            .style({"fill":"black"});
+      picked = Math.round(data.length - (rotation % 360) / ps);
+      picked = picked >= data.length ? (picked % data.length) : picked;
 
-        //draw spin circle
-        container.append("circle")
-            .attr("cx", 0)
-            .attr("cy", 0)
-            .attr("r", 60)
-            .style({"fill":"white","cursor":"pointer"});
+      if(oldpick.indexOf(picked) !== -1){
+        d3.select(this).call(spin);
+        return;
+      } else {
+        oldpick.push(picked);
+      }
 
-        //spin text
-        container.append("text")
-            .attr("x", 0)
-            .attr("y", 15)
-            .attr("text-anchor", "middle")
-            .text("SPIN")
-            .style({"font-weight":"bold", "font-size":"30px"});
-       
-       
-        function rotTween(to) {
-          var i = d3.interpolate(oldrotation % 360, rotation);
-          return function(t) {
-            return "rotate(" + i(t) + ")";
-          };
-        }
-       
-       
-        function getRandomNumbers(){
-            var array = new Uint16Array(1000);
-            var scale = d3.scale.linear().range([360, 9440]).domain([0, 100000]);
+      rotation += 90 - Math.round(ps/2);
 
-            if(window.hasOwnProperty("crypto") && typeof window.crypto.getRandomValues === "function"){
-                window.crypto.getRandomValues(array);
-                console.log("works");
-            } else {
-                //no support for crypto, get crappy random numbers
-                for(var i=0; i < 1000; i++){
-                    array[i] = Math.floor(Math.random() * 100000) + 1;
-                }
-            }
+      vis.transition()
+        .duration(5000)
+        .attrTween("transform", rotTween)
+        .each("end", function(){
+          d3.select(".slice:nth-child(" + (picked + 1) + ") path").attr("fill", "#333");
+          d3.select("#question h1").text(data[picked].question);
+          oldrotation = rotation;
+          container.on("click", spin);
+        });
+    }
 
-            return array;
-        }
+    // Arrow
+    svg.append("g")
+      .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
+      .append("path")
+      .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
+      .style({"fill":"black"});
 
-        </script>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </div>
-        </div>           
-</div>  
+    // Center circle
+    container.append("circle")
+      .attr("cx", 0)
+      .attr("cy", 0)
+      .attr("r", Math.max(42, r * 0.18))
+      .style({"fill":"white","cursor":"pointer"});
+
+    // Spin text
+    container.append("text")
+      .attr("x", 0)
+      .attr("y", 10)
+      .attr("text-anchor", "middle")
+      .text("SPIN")
+      .style({"font-weight":"bold", "font-size": (Math.max(18, r * 0.10)) + "px"});
+
+    function rotTween(){
+      var i = d3.interpolate(oldrotation % 360, rotation);
+      return function(t){ return "rotate(" + i(t) + ")"; };
+    }
+
+    // Rebuild on rotate/resize (enkel och stabil)
+    window.addEventListener("resize", function(){
+      clearTimeout(window.__rz);
+      window.__rz = setTimeout(function(){ location.reload(); }, 150);
+    });
+  </script>
 </body>
-
 </html>
-
-
-
-
-
