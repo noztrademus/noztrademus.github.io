@@ -1,47 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CB60FSK1NV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CB60FSK1NV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CB60FSK1NV');
+  </script>
 
-  gtag('config', 'G-CB60FSK1NV');
-</script>
-    <meta charset="utf-8">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World of Noztra</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css">  
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World of Noztra</title>
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>   
-        <div class="wrapper" style="background-image: url('/images/bg.jpeg');">
-            <div class="overlay"></div>
-        
-<div class="container">
-                <div class="text-module">
-                    <h1 class="title color--red">World of Noztra</h1>
-                    <h2 class="subtitle color--gray">Choose your game mode</h2> 
-                    
-<a href="wheelofmisfortune.html" class="button-link">Wheel of Misfortune</a>
-<a href="zerotohero.html" class="button-link">Zero to Hero</a>
-                    <h2 class="subtitle color--gray">More fun</h2> 
-<a href="hunterofthemonth.html" class="button-link">Hunter of the month</a>
-<a href="dpscorner.html" class="button-link">DPS Corner</a>
-                    
-                    <h2 class="subtitle color--gray">Play me</h2> 
-<audio id="player" src="/audio/pillarmen.mp3"></audio>
-<div>
-    <button onclick="document.getElementById('player').play()">Play</button>
-    <button onclick="document.getElementById('player').pause()">Pause</button>
-</div>
-                </div>
-        </div>           
-</div>  
+
+<body>
+  <div class="wrapper" style="background-image: url('/images/bg.jpeg');">
+    <div class="overlay"></div>
+
+    <div class="container">
+      <div class="text-module">
+        <h1 class="title">World of Noztra</h1>
+        <h2 class="subtitle">Choose your game mode</h2>
+
+        <div class="button-row">
+          <a href="wheelofmisfortune.html" class="button-link">Wheel of Misfortune</a>
+          <a href="zerotohero.html" class="button-link">Zero to Hero</a>
+        </div>
+
+        <h2 class="subtitle">More fun</h2>
+
+        <div class="button-row">
+          <a href="hunterofthemonth.html" class="button-link">Hunter of the month</a>
+          <a href="dpscorner.html" class="button-link">DPS Corner</a>
+        </div>
+
+        <h2 class="subtitle">Play me</h2>
+
+        <audio id="player" src="/audio/pillarmen.mp3" preload="none"></audio>
+
+        <div class="button-row">
+          <button type="button" class="button-link button-link--native" id="btnPlay">Play</button>
+          <button type="button" class="button-link button-link--native" id="btnPause">Pause</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const player = document.getElementById('player');
+    document.getElementById('btnPlay').addEventListener('click', () => player.play());
+    document.getElementById('btnPause').addEventListener('click', () => player.pause());
+  </script>
+
+  <style>
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 10px 0 18px;
+    }
+
+    .button-link--native {
+      border: none;
+    }
+
+    @media (max-width: 480px) {
+      .button-link {
+        font-size: 20px;
+        padding: 12px 18px;
+      }
+      .title {
+        font-size: 3rem;
+      }
+      .subtitle {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </body>
-
 </html>
-
