@@ -19,90 +19,152 @@
   <link rel="stylesheet" href="/css/style.css">
 
   <style>
-    /* ===== Star Wars font ===== */
+    /* ===== Star Wars font (Hollow) ===== */
     @font-face {
-      font-family: 'StarJedi';
-      src: url('/fonts/Starjhol.ttf');
+      font-family: 'StarJediHollow';
+      /* ÄNDRA om din font ligger i /fonts/ istället */
+      src: url('/css/fonts/Starjhol.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
     }
 
-    /* ===== Theme: JUL + STAR WARS ===== */
+    /* ===== JULRAID THEME ===== */
     body.julraid-page{
       min-height: 100vh;
       margin: 0;
       color: #fff;
+    }
 
-      /* Julig bakgrund */
-      background-image: url('/images/julraid_bg.jpg');
+    /* Julig bakgrund + overlay för läsbarhet */
+    .julraid-wrapper{
+      min-height: 100vh;
+      background-image: url('/images/julraid_bg.jpg'); /* byt vid behov */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
 
-    /* Mörk overlay för läsbarhet */
     .julraid-overlay{
-      position: fixed;
+      position: absolute;
       inset: 0;
       background:
         radial-gradient(circle at 50% 0%, rgba(0,0,0,0.35), rgba(0,0,0,0.9)),
-        linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.85));
-      z-index: 0;
-    }
-
-    /* Se till att innehållet hamnar över overlay */
-    body.julraid-page .page{
-      position: relative;
+        linear-gradient(rgba(0,0,0,0.20), rgba(0,0,0,0.85));
       z-index: 1;
     }
 
-    /* Title: Star Wars look */
-    body.julraid-page .wheel-title{
-      font-family: 'StarJedi', monospace;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.35rem;
-
-      /* “Star Wars yellow” + glow */
-      color: #ffe81f;
-      text-shadow:
-        0 0 10px rgba(255,232,31,0.7),
-        0 0 28px rgba(255,232,31,0.35),
-        0 10px 40px rgba(0,0,0,0.65);
-
-      /* gör den lite större än din standard */
-      font-size: clamp(44px, 10vw, 120px);
-      margin-top: 28px;
+    .julraid-container{
+      position: relative;
+      z-index: 2;
     }
 
-    /* Hjulets text lite mindre på mobil */
+    /* D3 text på wheel */
     #chart text{
       font-family: Helvetica, Arial, sans-serif;
       font-size: 16px;
       pointer-events: none;
     }
 
+    /* Responsiv layout (scopad till .julraid-page) */
+    .julraid-page .julraid-content{
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 0 40px;
+      text-align: center;
+    }
+
+    /* TITEL: Star Wars style */
+    .julraid-page .julraid-title{
+      font-family: 'StarJediHollow', 'StarJedi', 'Orbitron', monospace;
+      font-weight: 400;
+      text-transform: uppercase; /* viktigt */
+      letter-spacing: 0.45rem;
+      color: #ffe81f;
+      text-shadow:
+        0 0 10px rgba(255,232,31,0.75),
+        0 0 28px rgba(255,232,31,0.4),
+        0 10px 40px rgba(0,0,0,0.65);
+      font-size: clamp(44px, 10vw, 120px);
+      margin: 0 0 10px;
+    }
+
+    .julraid-page .julraid-desc{
+      max-width: 980px;
+      margin: 0 auto 18px;
+      padding: 0 12px;
+      font-family: 'Shadows', system-ui, sans-serif;
+      font-size: clamp(18px, 3.6vw, 26px);
+      line-height: 1.35;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    }
+
+    .julraid-page .wheel-layout{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      align-items: center;
+      justify-items: center;
+      margin-top: 10px;
+    }
+
+    .julraid-page #chart{
+      width: min(92vw, 520px);
+      height: min(92vw, 520px);
+    }
+
+    .julraid-page #chart svg{
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .julraid-page #question{
+      width: min(92vw, 900px);
+      padding: 0 16px 10px;
+      text-align: center;
+    }
+
+    .julraid-page #question h1{
+      margin: 0;
+      font-family: monospace;
+      font-weight: 800;
+      font-size: clamp(20px, 4.5vw, 40px);
+      color: white;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+      line-height: 1.1;
+    }
+
     @media (max-width: 480px){
       #chart text{ font-size: 13px; }
-      body.julraid-page .wheel-title{ letter-spacing: 0.2rem; }
+      .julraid-page .julraid-title{ letter-spacing: 0.25rem; }
     }
   </style>
 </head>
 
-<body class="wheel-page julraid-page">
+<body class="julraid-page">
   <a href="/" class="home-link">&lt; Home</a>
-  <div class="julraid-overlay"></div>
 
-  <main class="page">
-    <h2 class="wheel-title">Julraid</h2>
+  <div class="wrapper julraid-wrapper">
+    <div class="julraid-overlay"></div>
 
-    <section class="wheel-layout">
-      <div id="chart" aria-label="Wheel chart"></div>
-      <div id="question" aria-live="polite"><h1></h1></div>
-    </section>
+    <div class="container julraid-container">
+      <div class="text-module julraid-content">
+        <h1 class="julraid-title">JULRAID</h1>
 
-    <h2 class="wheel-rules-title">GAME RULES: FOLLOW THE RULES!</h2>
-  </main>
+        <!-- Du skriver om texten sen: -->
+        <p class="subtitle julraid-desc">
+My young padawan....        </p>
+
+        <section class="wheel-layout">
+          <div id="chart" aria-label="Julraid wheel"></div>
+          <div id="question" aria-live="polite"><h1></h1></div>
+        </section>
+      </div>
+    </div>
+  </div>
 
   <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script type="text/javascript" charset="utf-8">
@@ -110,7 +172,6 @@
     var padding = { top: 20, right: 20, bottom: 20, left: 20 };
 
     function computeSize() {
-      // wheel max 520px, men skalar ned på mobil
       var size = Math.min(window.innerWidth * 0.92, 520);
       return {
         size: size,
@@ -130,36 +191,17 @@
         oldpick = [],
         color = d3.scale.category20();
 
+    // Wheel-data (du kan byta till jul-regler senare)
     var data = [
-      {"label":"Weapon",  "value":1,  "question":"FREE LOADOUT! WITH BLUE WEAPONS!"},
-      {"label":"Armor",  "value":1,  "question":"BLUE ARMOR ONLY!"},
-      {"label":"Weapon",  "value":1,  "question":"BULLET SPRAYER! Sweet Business & Heavy Machinegun!"},
-      {"label":"Show & Tell",  "value":1,  "question":"DEATHSINGER! Everytime you die, sing!"},
-      {"label":"Visuals",  "value":1,  "question":"INGEN HUD!"},
-      {"label":"Armor",  "value":1,  "question":"WHITE ARMOR ONLY!"},
-      {"label":"Weapon",  "value":1,  "question":"SCOUT SCOUT BABY! Endast dubbel scout!"},
-      {"label":"Show & Tell",  "value":1,  "question":"DEATHSCREAMER! Everytime you die, SCREAM!"},
-      {"label":"Weapon",  "value":1,  "question":"TRIPLE FUSION MODE!"},
-      {"label":"Silence",  "value":1,  "question":"NO MIKE! Emotes only!"},
-      {"label":"Controls",  "value":1,  "question":"LOOK SENS 1"},
-      {"label":"Challenger",  "value":1,  "question":"NO GUNS, abilities only!"},
-      {"label":"Weapon",  "value":1,  "question":"SALVATIONS GRIP BABY! With double sidearms!"},
-      {"label":"Modless(ter)",  "value":1,  "question":"NO MODS!"},
-      {"label":"Dansken",  "value":1,  "question":"DU TALER NU DANSK!"},
-      {"label":"Weapon",  "value":1,  "question":"TRIPLE SNIPER MODE!"},
-      {"label":"Controls",  "value":1,  "question":"Button layout: MIRROR!"},
-      {"label":"Weapon",  "value":1,  "question":"U ARE NOW LARSA! Heir Apparent only!"},
-      {"label":"Weapon",  "value":1,  "question":"TRIPLE SHOTGUN MODE!"},
-      {"label":"Show & Tell",  "value":1,  "question":"UwU! If someone dies, you go UwUUUUUUUhhhH!"},
-      {"label":"Weapon",  "value":1,  "question":"TRIPLE BOW MODE!"},
-      {"label":"Glitch",  "value":1,  "question":"TELESTO ONLY! Glitch away!"},
-      {"label":"Controls",  "value":1,  "question":"Movement Control: Legacy Southpaw!"},
-      {"label":"Lazer",  "value":1,  "question":"LAZER Go pew pew! Trace only!"},
-      {"label":"Show & Tell",  "value":1,  "question":"HALLOWEEN IS HERE! Put on a Halloween mask and become the character you chose!"},
-      {"label":"Weapon",  "value":1,  "question":"TRIPLE GL MODE!"},
-      {"label":"Hive",  "value":1,  "question":"SWORD ONLY! And a tiny glave.."},
-      {"label":"Show & Tell",  "value":1,  "question":"Story time! Tell a short story at each wipe!"},
-      {"label":"Dirigenten",  "value":1,  "question":"Du bestämmer vad alla ska göra!"}
+      {"label":"Last Wish",  "value":1,  "question":"Last Wish"},
+      {"label":"Garden of Salvation",  "value":1,  "question":"Garden of Salvation"},
+      {"label":"Vault of Glass",  "value":1,  "question":"Vault of Glass"},
+      {"label":"Deep Stone Crypt",  "value":1,  "question":"Deep Stone Crypt"},
+      {"label":"Root of Nightmares",  "value":1,  "question":"Root of Nightmares"},
+      {"label":"Vow of the Disciple",  "value":1,  "question":"Vow of the Disciple"},
+      {"label":"Crota´s End",  "value":1,  "question":"Crota´s End"},
+      {"label":"Salvation´s Edge",  "value":1,  "question":"Salvation´s Edge"},
+      {"label":"This is the way",  "value":1,  "question":"Free choice"}
     ];
 
     // ===== Build SVG =====
@@ -199,10 +241,10 @@
 
     container.on("click", spin);
 
-    function spin() {
+    function spin(){
       container.on("click", null);
 
-      if (oldpick.length === data.length) {
+      if(oldpick.length === data.length){
         container.on("click", null);
         return;
       }
@@ -215,7 +257,7 @@
       picked = Math.round(data.length - (rotation % 360) / ps);
       picked = picked >= data.length ? (picked % data.length) : picked;
 
-      if (oldpick.indexOf(picked) !== -1) {
+      if(oldpick.indexOf(picked) !== -1){
         d3.select(this).call(spin);
         return;
       } else {
@@ -237,9 +279,9 @@
 
     // Arrow
     svg.append("g")
-      .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2) + padding.top) + ")")
+      .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
       .append("path")
-      .attr("d", "M-" + (r * .15) + ",0L0," + (r * .05) + "L0,-" + (r * .05) + "Z")
+      .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
       .style({"fill":"black"});
 
     // Center circle
@@ -249,6 +291,7 @@
       .attr("r", Math.max(42, r * 0.18))
       .style({"fill":"white","cursor":"pointer"});
 
+    // Spin text
     container.append("text")
       .attr("x", 0)
       .attr("y", 10)
@@ -256,9 +299,9 @@
       .text("SPIN")
       .style({"font-weight":"bold", "font-size": (Math.max(18, r * 0.10)) + "px"});
 
-    function rotTween() {
+    function rotTween(){
       var i = d3.interpolate(oldrotation % 360, rotation);
-      return function(t) { return "rotate(" + i(t) + ")"; };
+      return function(t){ return "rotate(" + i(t) + ")"; };
     }
 
     window.addEventListener("resize", function(){
@@ -268,6 +311,3 @@
   </script>
 </body>
 </html>
-
-
-
