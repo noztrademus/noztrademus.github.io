@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CB60FSK1NV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CB60FSK1NV');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>40 årskalas</title>
+  <meta name="description" content="Vi fyller 40 år!" />
+  <meta name="theme-color" content="#0b1020" />
+
+  <!-- Blockera indexering -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #11182d;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #f5f7ff;
+      --muted: #c8d2f0;
+      --accent: #ffd166;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(255, 209, 102, 0.08), transparent 30%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+      line-height: 1.5;
+    }
+
+    .container {
+      width: min(100%, 920px);
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 28px 0 12px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.12);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 8vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 14px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.7vw, 1.15rem);
+    }
+
+    .card {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+    }
+
+    .card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .map-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .map-frame {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .map-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .actions {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #1b1b1b;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .button:hover,
+    .button:focus {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .info {
+      display: grid;
+      gap: 12px;
+    }
+
+    .info-item {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .info-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.92rem;
+    }
+
+    @media (min-width: 700px) {
+      .container {
+        padding: 32px 20px 64px;
+      }
+
+      .card {
+        padding: 24px;
+      }
+
+      .info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">40 årskalas</p>
+      <h1>Vi fyller 40 år!</h1>
+      <p class="lead">
+        Kul att du vill fira med oss. Här hittar du vägbeskrivning och praktisk information inför dagen.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Hitta hit</h2>
+      <p>
+        Tryck på bilden för att öppna kartan i full storlek. Det gör den enklare att läsa på mobilen.
+      </p>
+
+      <a class="map-link" href="images/karta_till_vega.jpg" target="_blank" rel="noopener noreferrer">
+        <div class="map-frame">
+          <img
+            src="images/karta_till_vega.jpg"
+            alt="Vägbeskrivning till Vega"
+            loading="eager"
+          />
+        </div>
+      </a>
+
+      <div class="actions">
+        <a class="button" href="images/karta_till_vega.jpg" target="_blank" rel="noopener noreferrer">
+          Öppna kartan större
+        </a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Praktisk information</h2>
+      <div class="info">
+        <div class="info-item">
+          <strong>Datum</strong>
+          <span>Lägg in datum här</span>
+        </div>
+        <div class="info-item">
+          <strong>Tid</strong>
+          <span>Lägg in tid här</span>
+        </div>
+        <div class="info-item">
+          <strong>Adress</strong>
+          <span>Lägg in adress här</span>
+        </div>
+        <div class="info-item">
+          <strong>OSA</strong>
+          <span>Lägg in OSA-information här</span>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Vi ser fram emot att fira tillsammans!
+    </p>
+  </main>
+</body>
+</html>
